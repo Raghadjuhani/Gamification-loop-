@@ -7,18 +7,14 @@ const SCREENS = {
   INVESTMENT: 4,
 };
 
-function Wordmark({ size = "sm" }) {
-  const text = size === "sm" ? "text-[11px] tracking-[0.14em]" : "text-[13px] tracking-[0.16em]";
-
-  return (
-    <span className={`font-semibold uppercase text-ink ${text}`}>FinWise</span>
-  );
+function Wordmark() {
+  return <span className="text-[13px] font-semibold text-ink">FinWise</span>;
 }
 
 function PhoneFrame({ children }) {
   return (
-    <div className="relative h-[760px] w-[390px] overflow-hidden rounded-[40px] border border-line bg-base shadow-[0_0_0_10px_#080d18,0_32px_80px_rgba(0,0,0,0.45)]">
-      <div className="pointer-events-none absolute left-1/2 top-[10px] z-20 h-[28px] w-[110px] -translate-x-1/2 rounded-full bg-[#070b14]" />
+    <div className="relative h-[100dvh] w-full overflow-hidden bg-base sm:h-[760px] sm:w-[390px] sm:rounded-[40px] sm:border sm:border-line sm:shadow-[0_0_0_10px_#080d18,0_32px_80px_rgba(0,0,0,0.45)]">
+      <div className="pointer-events-none absolute left-1/2 top-[10px] z-20 hidden h-[28px] w-[110px] -translate-x-1/2 rounded-full bg-[#070b14] sm:block" />
       <div className="h-full w-full">{children}</div>
     </div>
   );
@@ -34,7 +30,7 @@ function ScreenTrigger({ onAdvance }) {
         aria-label="Your Q4 cash position updated — see what changed"
       >
         <div className="mb-2 flex items-center justify-between">
-          <Wordmark size="sm" />
+          <Wordmark />
           <span className="text-[11px] text-muted">2m ago</span>
         </div>
         <p className="text-[15px] font-medium leading-snug text-ink">
@@ -94,19 +90,16 @@ function ScreenReward({ positive, onAdvance }) {
   const amount = positive ? "3 weeks" : "2 weeks";
 
   return (
-    <div className="flex h-full flex-col px-6 pb-6 pt-16">
-      <div className="flex flex-1 flex-col items-center justify-center text-center">
-        <p className="mb-3 text-[18px] font-medium text-ink">{headline}</p>
-        <p className={`text-[44px] font-semibold leading-none tracking-tight ${color}`}>
-          {amount}
-        </p>
-        <p className="mt-4 text-[14px] text-muted">vs. last update</p>
-      </div>
-
+    <div className="flex h-full flex-col items-center justify-center px-6 pb-6 pt-16 text-center">
+      <p className="mb-3 text-[18px] font-medium text-ink">{headline}</p>
+      <p className={`text-[44px] font-semibold leading-none tracking-tight ${color}`}>
+        {amount}
+      </p>
+      <p className="mt-4 text-[14px] text-muted">vs. last update</p>
       <button
         type="button"
         onClick={onAdvance}
-        className="mx-auto mb-4 text-[14px] text-muted underline decoration-line underline-offset-4 transition-colors hover:text-ink focus:outline-none focus:text-ink"
+        className="mt-10 text-[14px] text-muted underline decoration-line underline-offset-4 transition-colors hover:text-ink focus:outline-none focus:text-ink"
       >
         See full model
       </button>
@@ -181,7 +174,7 @@ export default function App() {
   }, [growth]);
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-base p-6">
+    <main className="flex min-h-dvh items-center justify-center bg-base sm:p-6">
       <PhoneFrame>
         {screen === SCREENS.TRIGGER && (
           <ScreenTrigger onAdvance={() => setScreen(SCREENS.ACTION)} />
